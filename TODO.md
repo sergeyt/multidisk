@@ -10,4 +10,4 @@
 - [ ] unique design
 - [x] deploy app
 - [ ] deal with SWR mutate
-- [ ] refresh page after upload
+- [x] refresh page after upload
