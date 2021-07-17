@@ -12,7 +12,7 @@ export default function DriveView() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data } = useSWR(`/drive/${id}/folders`, async () => {
+  const { data } = useSWR(`/drive/${id}`, async () => {
     const drive = await getDrive(String(id));
     const folders = await drive.getFolders();
     const files = await drive.getFiles();
