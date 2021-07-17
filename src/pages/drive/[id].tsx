@@ -1,32 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import useSWR from "swr";
-import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import FolderIcon from "@material-ui/icons/Folder";
 import { Widget } from "@uploadcare/react-widget";
 import { getDrive } from "../../core/store";
 import Loader from "../../components/Loader";
-import { Item, File, Folder } from "../../types";
-import FileItem from "./FileItem";
-
-const useStyles = makeStyles((theme) => ({
-  item: {
-    cursor: "pointer",
-  },
-  fileLink: {
-    display: "flex",
-  },
-}));
+import { Item } from "../../types";
+import ItemList from "./ItemList";
 
 export default function DriveView() {
-  const styles = useStyles();
   const router = useRouter();
   const { id } = router.query;
 
@@ -42,40 +24,13 @@ export default function DriveView() {
 
   // TODO display empty placeholder with add folder or upload file buttons
 
-  const items = data.items.map((item, k) => {
-    switch (item.type) {
-      case "file":
-        return <FileItem key={k} item={item as File} />;
-      case "folder":
-        return <FolderItem key={k} item={item as Folder} />;
-      default:
-        return null;
-    }
-  });
-
   return (
     <>
       <Box m={2} mb={2}>
         <label>Upload a file:&nbsp;</label>
         <Widget publicKey={data.drive.publicKey} />
       </Box>
-      <List>{items}</List>
+      <ItemList data={data.items} />
     </>
   );
 }
-
-const FolderItem: React.FC<{ item: Folder }> = ({ item }) => {
-  const styles = useStyles();
-  return (
-    <Link href={`/folder/${item.id}`}>
-      <ListItem className={styles.item}>
-        <ListItemAvatar>
-          <Avatar>
-            <FolderIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary={item.name} />
-      </ListItem>
-    </Link>
-  );
-};
