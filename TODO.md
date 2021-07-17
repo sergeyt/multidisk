@@ -5,8 +5,9 @@
 - [x] list drives
 - [x] add/delete drive
 - [x] upload/download files
-- [ ] delete file
+- [x] delete file
 - [ ] create/delete folders
 - [ ] unique design
 - [x] deploy app
+- [ ] deal with SWR mutate
 - [ ] refresh page after upload
