@@ -9,3 +9,4 @@
 - [ ] create/delete folders
 - [ ] unique design
 - [x] deploy app
+- [ ] refresh page after upload
