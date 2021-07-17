@@ -12,7 +12,7 @@ export default function DriveView() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data } = useSWR(`/drive/${id}`, async () => {
+  const { data, revalidate } = useSWR(`/drive/${id}`, async () => {
     const drive = await getDrive(String(id));
     const folders = await drive.getFolders();
     const files = await drive.getFiles();
@@ -28,7 +28,7 @@ export default function DriveView() {
     <>
       <Box m={2} mb={2}>
         <label>Upload a file:&nbsp;</label>
-        <Widget publicKey={data.drive.publicKey} />
+        <Widget publicKey={data.drive.publicKey} onChange={revalidate} />
       </Box>
       <ItemList data={data.items} />
     </>
