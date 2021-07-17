@@ -28,7 +28,7 @@ const DriveList: React.FC<{ drives: Drive[] }> = ({ drives }) => {
               <DriveIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={d.name} secondary="Jan 9, 2014" />
+          <ListItemText primary={d.name} secondary={d.driveType} />
           <ListItemSecondaryAction>
             <DriveMenu driveId={d.id} />
           </ListItemSecondaryAction>
