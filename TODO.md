@@ -8,4 +8,4 @@
 - [ ] delete file
 - [ ] create/delete folders
 - [ ] unique design
-- [ ] upload app
+- [x] deploy app
