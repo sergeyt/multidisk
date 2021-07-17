@@ -9,8 +9,21 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.12.1",
+    "@material-ui/icons": "^4.11.2",
+    "@uploadcare/react-widget": "^1.3.7",
+    "axios": "^0.21.1",
+    "localforage": "^1.9.0",
+    "lodash": "^4.17.21",
+    "luxon": "^2.0.1",
     "next": "11.0.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "swr": "^0.5.6"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.171",
+    "@types/luxon": "^1.27.1",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
   }
 }

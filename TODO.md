@@ -1,8 +1,11 @@
 # TODO
 
-- [x] next.js app
-- [ ] use material-ui since it has tree view
-- [ ] create file navigator component capable
-  - [ ] upload/download/delete files
-  - [ ] create/delete folders
-  - [ ] show file tree
+- [x] bootstrap next.js app
+- [x] use material-ui
+- [x] list drives
+- [x] add/delete drive
+- [x] upload/download files
+- [ ] delete file
+- [ ] create/delete folders
+- [ ] unique design
+- [ ] upload app
