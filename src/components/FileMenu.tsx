@@ -1,9 +1,9 @@
 import React from "react";
 import { mutate } from "swr";
 import MenuItem from "@material-ui/core/MenuItem";
-import useConfirmation from "../../components/Confirmation";
-import MoreMenu from "../../components/MoreMenu";
-import { deleteFileById } from "../../core/store";
+import useConfirmation from "./Confirmation";
+import MoreMenu from "./MoreMenu";
+import { deleteFileById } from "../core/store";
 
 const FileMenu: React.FC<{ driveId: string; fileId: string }> = ({
   driveId,

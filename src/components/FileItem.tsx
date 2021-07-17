@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import prettyBytes from "pretty-bytes";
 import FileMenu from "./FileMenu";
-import { File } from "../../types";
+import { File } from "../types";
 
 const useStyles = makeStyles((theme) => ({
   item: {

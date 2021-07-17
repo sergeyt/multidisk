@@ -6,7 +6,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import FolderIcon from "@material-ui/icons/Folder";
 import ListItemText from "@material-ui/core/ListItemText";
-import { Folder } from "../../types";
+import { Folder } from "../types";
 
 const useStyles = makeStyles((theme) => ({
   item: {

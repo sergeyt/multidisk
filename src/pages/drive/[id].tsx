@@ -6,7 +6,7 @@ import { Widget } from "@uploadcare/react-widget";
 import { getDrive } from "../../core/store";
 import Loader from "../../components/Loader";
 import { Item } from "../../types";
-import ItemList from "./ItemList";
+import ItemList from "../../components/ItemList";
 
 export default function DriveView() {
   const router = useRouter();
