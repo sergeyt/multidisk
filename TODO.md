@@ -11,3 +11,4 @@
 - [x] deploy app
 - [ ] deal with SWR mutate
 - [x] refresh page after upload
+- [ ] move drive view components to components dir
