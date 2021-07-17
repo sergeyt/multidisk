@@ -7,6 +7,7 @@ export interface Item {
 }
 
 export interface File extends Item {
+  driveId: string;
   size: number;
   created_at: Date;
   url: string;
@@ -21,4 +22,5 @@ export interface Drive extends Folder {
   options: any;
   driveType: string;
   publicKey: string;
+  deleteFile(fileId: string): Promise<void>;
 }

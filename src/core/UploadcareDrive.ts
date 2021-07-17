@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Drive, File, Folder, ItemType } from "../types";
 
 type Options = {
@@ -47,15 +47,18 @@ class UploadcareDrive implements Drive {
     };
   }
 
-  async getFiles(): Promise<File[]> {
-    const resp = await axios.get("https://api.uploadcare.com/files/", {
+  axios() {
+    return axios.create({
       headers: this.makeHeaders(),
     });
-    if (!isOK(resp.status)) {
-      throw new Error(JSON.stringify(resp.data));
-    }
+  }
+
+  async getFiles(): Promise<File[]> {
+    const resp = await this.axios().get("https://api.uploadcare.com/files/");
+    checkResponseOK(resp);
     return resp.data.results.map((f) => ({
       type: "file",
+      driveId: this.id,
       id: f.uuid,
       name: f.original_filename,
       created_at: new Date(f.datetime_uploaded),
@@ -66,10 +69,23 @@ class UploadcareDrive implements Drive {
   async getFolders(): Promise<Folder[]> {
     return [];
   }
+
+  async deleteFile(fileId: string): Promise<void> {
+    const resp = await this.axios().delete(
+      `https://api.uploadcare.com/files/${fileId}/`
+    );
+    checkResponseOK(resp);
+  }
 }
 
 function isOK(status: number) {
   return status >= 200 && status < 300;
+}
+
+function checkResponseOK(resp: AxiosResponse) {
+  if (!isOK(resp.status)) {
+    throw new Error(JSON.stringify(resp.data));
+  }
 }
 
 export default UploadcareDrive;

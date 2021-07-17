@@ -72,3 +72,8 @@ export async function deleteDriveById(id: string) {
   drives.splice(i, 1);
   await saveDrives();
 }
+
+export async function deleteFileById(driveId, fileId: string) {
+  const drive = await getDrive(driveId);
+  await drive.deleteFile(fileId);
+}

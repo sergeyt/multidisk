@@ -10,6 +10,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Avatar from "@material-ui/core/Avatar";
 import FolderIcon from "@material-ui/icons/Folder";
 import FileIcon from "@material-ui/icons/InsertDriveFile";
@@ -17,6 +18,7 @@ import { Widget } from "@uploadcare/react-widget";
 import { getDrive } from "../../core/store";
 import Loader from "../../components/Loader";
 import { Item, File, Folder } from "../../types";
+import FileMenu from "./FileMenu";
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -61,10 +63,7 @@ export default function DriveView() {
         <label>Upload a file:&nbsp;</label>
         <Widget publicKey={data.drive.publicKey} />
       </Box>
-      <List>
-        <ListItem></ListItem>
-        {items}
-      </List>
+      <List>{items}</List>
     </>
   );
 }
@@ -84,6 +83,9 @@ const FileItem: React.FC<{ item: File }> = ({ item }) => {
           secondary={formatDate(item.created_at)}
         />
       </MuiLink>
+      <ListItemSecondaryAction>
+        <FileMenu driveId={item.driveId} fileId={item.id} />
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };
