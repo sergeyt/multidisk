@@ -22,8 +22,6 @@ export default function DriveView() {
     return <Loader />;
   }
 
-  // TODO display empty placeholder with add folder or upload file buttons
-
   return (
     <>
       <Box m={2} mb={2}>
