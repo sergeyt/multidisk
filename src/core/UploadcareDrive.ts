@@ -65,6 +65,7 @@ class UploadcareDrive implements Drive {
           name: f.original_filename,
           createdAt: new Date(f.datetime_uploaded),
           url: f.original_file_url,
+          size: f.size,
         } as File)
     );
   }

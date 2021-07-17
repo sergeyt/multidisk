@@ -2,23 +2,19 @@ import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useSWR from "swr";
-import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import MuiLink from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Avatar from "@material-ui/core/Avatar";
 import FolderIcon from "@material-ui/icons/Folder";
-import FileIcon from "@material-ui/icons/InsertDriveFile";
 import { Widget } from "@uploadcare/react-widget";
 import { getDrive } from "../../core/store";
 import Loader from "../../components/Loader";
 import { Item, File, Folder } from "../../types";
-import FileMenu from "./FileMenu";
+import FileItem from "./FileItem";
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -68,28 +64,6 @@ export default function DriveView() {
   );
 }
 
-const FileItem: React.FC<{ item: File }> = ({ item }) => {
-  const styles = useStyles();
-  return (
-    <ListItem className={styles.item}>
-      <ListItemAvatar>
-        <Avatar>
-          <FileIcon />
-        </Avatar>
-      </ListItemAvatar>
-      <MuiLink href={item.url} className={styles.fileLink} target="_blank">
-        <ListItemText
-          primary={item.name}
-          secondary={formatDate(item.createdAt)}
-        />
-      </MuiLink>
-      <ListItemSecondaryAction>
-        <FileMenu driveId={item.driveId} fileId={item.id} />
-      </ListItemSecondaryAction>
-    </ListItem>
-  );
-};
-
 const FolderItem: React.FC<{ item: Folder }> = ({ item }) => {
   const styles = useStyles();
   return (
@@ -105,7 +79,3 @@ const FolderItem: React.FC<{ item: Folder }> = ({ item }) => {
     </Link>
   );
 };
-
-function formatDate(val: Date) {
-  return DateTime.fromJSDate(val).toFormat("MMM d, yyyy");
-}
