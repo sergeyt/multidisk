@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { mutate } from "swr";
 import MuiLink from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
@@ -12,7 +11,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { addDrive } from "../core/store";
 
 export default function AddDriveButton() {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [valid, setValid] = useState(false);
 
@@ -45,8 +43,6 @@ export default function AddDriveButton() {
     });
     await mutate("/drives");
     close();
-    // TODO why SWR mutate does not work in next.js
-    router.reload();
   };
 
   return (
