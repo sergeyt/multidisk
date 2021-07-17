@@ -9,7 +9,7 @@ export interface Item {
 export interface File extends Item {
   driveId: string;
   size: number;
-  created_at: Date;
+  createdAt: Date;
   url: string;
 }
 

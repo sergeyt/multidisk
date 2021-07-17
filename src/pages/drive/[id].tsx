@@ -80,7 +80,7 @@ const FileItem: React.FC<{ item: File }> = ({ item }) => {
       <MuiLink href={item.url} className={styles.fileLink} target="_blank">
         <ListItemText
           primary={item.name}
-          secondary={formatDate(item.created_at)}
+          secondary={formatDate(item.createdAt)}
         />
       </MuiLink>
       <ListItemSecondaryAction>

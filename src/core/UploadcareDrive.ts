@@ -56,14 +56,17 @@ class UploadcareDrive implements Drive {
   async getFiles(): Promise<File[]> {
     const resp = await this.axios().get("https://api.uploadcare.com/files/");
     checkResponseOK(resp);
-    return resp.data.results.map((f) => ({
-      type: "file",
-      driveId: this.id,
-      id: f.uuid,
-      name: f.original_filename,
-      created_at: new Date(f.datetime_uploaded),
-      url: f.original_file_url,
-    }));
+    return resp.data.results.map(
+      (f) =>
+        ({
+          type: "file",
+          driveId: this.id,
+          id: f.uuid,
+          name: f.original_filename,
+          createdAt: new Date(f.datetime_uploaded),
+          url: f.original_file_url,
+        } as File)
+    );
   }
 
   async getFolders(): Promise<Folder[]> {
