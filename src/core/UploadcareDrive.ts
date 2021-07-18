@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { Drive, File, ItemType, Item, Folder } from "../types";
+import { checkResponseOK } from "./utils";
 
 type Options = {
   type: string;
@@ -71,15 +72,5 @@ export default class UploadcareDrive implements Drive {
 
   async getFolder(folderId: string): Promise<Folder> {
     throw new Error("not implemented");
-  }
-}
-
-function isOK(status: number) {
-  return status >= 200 && status < 300;
-}
-
-function checkResponseOK(resp: AxiosResponse) {
-  if (!isOK(resp.status)) {
-    throw new Error(JSON.stringify(resp.data));
   }
 }

@@ -1,5 +1,7 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
+import trimStart from "lodash/trimStart";
 import { Drive, ItemType, Item, File, Folder } from "../types";
+import { checkResponseOK } from "./utils";
 
 type Options = {
   type: string;
@@ -59,9 +61,23 @@ export default class DropboxDrive implements Drive {
   }
 
   async getFolder(folderId: string): Promise<Folder> {
-    // TODO check folder exists
-    // return new DropboxFolder(this, folderId);
-    throw new Error("not implemented");
+    // TODO figure out how to get folder info by id
+    // for now just list parent folder and find the folder
+    const path = parsePath(folderId);
+    const parentPath = path.slice(0, path.length - 1).join("/");
+
+    const resp = await this.axios().get(
+      "https://api.dropboxapi.com/2/files/list_folder",
+      {
+        data: {
+          path: parentPath,
+        },
+      }
+    );
+    checkResponseOK(resp);
+    // TODO check next page
+    const entry = resp.data.entries.find((t) => t.path_display === folderId);
+    return new DropboxFolder(this, entry);
   }
 
   axios() {
@@ -73,19 +89,13 @@ export default class DropboxDrive implements Drive {
   }
 }
 
-function isOK(status: number) {
-  return status >= 200 && status < 300;
-}
-
-function checkResponseOK(resp: AxiosResponse) {
-  if (!isOK(resp.status)) {
-    throw new Error(JSON.stringify(resp.data));
-  }
+function parsePath(path: string) {
+  return path.split("/");
 }
 
 class DropboxFolder implements Folder {
   constructor(private drive: DropboxDrive, entry: any) {
-    this.id = entry.id;
+    this.id = trimStart(entry.path_display, "/");
     this.name = entry.name;
     this.path = entry.path_display;
   }
@@ -93,6 +103,10 @@ class DropboxFolder implements Folder {
   id: string;
   name: string;
   path: string;
+
+  get driveId() {
+    return this.drive.id;
+  }
 
   get type(): ItemType {
     return "folder";

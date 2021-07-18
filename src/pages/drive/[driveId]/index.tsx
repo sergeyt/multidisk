@@ -1,17 +1,17 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Box } from "@material-ui/core";
-import { getDrive } from "../../core/store";
-import Loader from "../../components/Loader";
-import ItemList from "../../components/ItemList";
-import Uploader from "../../components/Uploader";
+import { getDrive } from "../../../core/store";
+import Loader from "../../../components/Loader";
+import ItemList from "../../../components/ItemList";
+import Uploader from "../../../components/Uploader";
 
 export default function DriveView() {
   const router = useRouter();
-  const { id } = router.query;
+  const { driveId } = router.query;
 
-  const { data } = useSWR(`/drive/${id}`, async () => {
-    const drive = await getDrive(String(id));
+  const { data } = useSWR(`/drive/${driveId}`, async () => {
+    const drive = await getDrive(String(driveId));
     const items = await drive.getItems();
     return { drive, items };
   });

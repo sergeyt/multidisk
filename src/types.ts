@@ -14,12 +14,15 @@ export interface File extends Item {
 }
 
 export interface Folder extends Item {
+  driveId: string;
   getItems(): Promise<Item[]>;
 }
 
-export interface Drive extends Folder {
+export interface Drive {
   options: any;
   provider: string;
+
+  getItems(): Promise<Item[]>;
   deleteFile(fileId: string): Promise<void>;
   getFolder(folderId: string): Promise<Folder>;
 }
