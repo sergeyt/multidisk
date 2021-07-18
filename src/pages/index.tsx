@@ -1,4 +1,3 @@
-import React from "react";
 import isEmpty from "lodash/isEmpty";
 import useSWR from "swr";
 import { getDrives } from "../core/store";
@@ -21,9 +20,5 @@ export default function Home() {
     );
   }
 
-  return (
-    <>
-      <DriveList drives={drives} />
-    </>
-  );
+  return <DriveList drives={drives} />;
 }
