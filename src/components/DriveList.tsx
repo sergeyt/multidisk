@@ -2,7 +2,8 @@ import Link from "next/link";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import DriveIcon from "@material-ui/icons/Work";
+import { SiDropbox as DropboxIcon } from "react-icons/si";
+import { FiHardDrive as DriveIcon } from "react-icons/fi";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import List from "@material-ui/core/List";
@@ -15,7 +16,7 @@ export default function DriveList({ drives }: { drives: Drive[] }) {
       <ListItem style={{ cursor: "pointer" }}>
         <ListItemAvatar>
           <Avatar>
-            <DriveIcon />
+            <Icon type={d.driveType} />
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary={d.name} secondary={d.driveType} />
@@ -27,3 +28,12 @@ export default function DriveList({ drives }: { drives: Drive[] }) {
   ));
   return <List>{items}</List>;
 }
+
+const Icon = ({ type }) => {
+  switch (type) {
+    case "dropbox":
+      return <DropboxIcon />;
+    default:
+      return <DriveIcon />;
+  }
+};

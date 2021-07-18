@@ -10,7 +10,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { addDrive } from "../core/store";
 
-export default function AddUploadcareDriveButton() {
+export default function AddDropboxButton() {
   const [open, setOpen] = useState(false);
   const [valid, setValid] = useState(false);
 
@@ -23,7 +23,7 @@ export default function AddUploadcareDriveButton() {
       const input = document.getElementById(id) as HTMLInputElement;
       return input?.value;
     };
-    return ["name", "publicKey", "secretKey"].reduce((a, k) => {
+    return ["name", "accessToken"].reduce((a, k) => {
       const val = getValue(k);
       a[k] = val;
       return a;
@@ -38,7 +38,7 @@ export default function AddUploadcareDriveButton() {
   const handleCreate = async () => {
     const data = getFormData();
     await addDrive({
-      type: "uploadcare",
+      type: "dropbox",
       ...data,
     });
     await mutate("/drives");
@@ -53,13 +53,13 @@ export default function AddUploadcareDriveButton() {
           setOpen(true);
         }}
       >
-        Add Uploadcare Drive
+        Add Dropbox
       </Button>
       <Dialog open={open} onClose={close} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">New Drive</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            This app stores your Uploadcare keys locally in browser storage so
+            This app stores your Dropbox keys locally in browser storage so
             don't worry be happy :). See{" "}
             <MuiLink
               href="https://uploadcare.com/about/privacy_policy/"
@@ -80,16 +80,8 @@ export default function AddUploadcareDriveButton() {
           />
           <TextField
             margin="dense"
-            id="publicKey"
-            label="Public Key"
-            type="text"
-            fullWidth
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
-            id="secretKey"
-            label="Secret Key"
+            id="accessToken"
+            label="Access Token"
             type="text"
             fullWidth
             onChange={handleChange}

@@ -1,6 +1,8 @@
 import localForage from "localforage";
+import { nanoid } from "nanoid";
 import UploadcareDrive from "./UploadcareDrive";
 import { Drive } from "../types";
+import DropboxDrive from "./DropboxDrive";
 
 const STORAGE_KEYS = {
   drives: "drives",
@@ -50,14 +52,33 @@ function saveDrives() {
 }
 
 function createDrive(options: any): Drive {
+  if (!options.name) {
+    throw new Error("name is not specified");
+  }
   switch (options.type) {
     case "uploadcare":
+      if (!options.publicKey) {
+        throw new Error("publicKey is not specified");
+      }
+      if (!options.secretKey) {
+        throw new Error("secretKey is not specified");
+      }
       return new UploadcareDrive({
         type: "uploadcare",
-        id: options.id || options.publicKey,
+        id: options.id || nanoid(),
         name: options.name,
         publicKey: options.publicKey,
         secretKey: options.secretKey,
+      });
+    case "dropbox":
+      if (!options.accessToken) {
+        throw new Error("accessToken is not specified");
+      }
+      return new DropboxDrive({
+        type: "dropbox",
+        id: options.id || nanoid(),
+        name: options.name,
+        accessToken: options.accessToken,
       });
     default:
       throw new Error(`Unsupported drive type: ${options.type}`);
