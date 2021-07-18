@@ -10,7 +10,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { addDrive } from "../core/store";
 
-export default function AddDriveButton() {
+export default function AddUploadcareDriveButton() {
   const [open, setOpen] = useState(false);
   const [valid, setValid] = useState(false);
 
@@ -53,7 +53,7 @@ export default function AddDriveButton() {
           setOpen(true);
         }}
       >
-        Add Drive
+        Add Uploadcare Drive
       </Button>
       <Dialog open={open} onClose={close} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">New Drive</DialogTitle>

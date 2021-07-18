@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import AddDriveButton from "./AddDriveButton";
+import AddUploadcareDriveButton from "./AddUploadcareDriveButton";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -26,7 +26,7 @@ export default function ApplicationBar() {
             MULTIDISK
           </Typography>
         </Link>
-        <AddDriveButton />
+        <AddUploadcareDriveButton />
       </Toolbar>
     </AppBar>
   );
