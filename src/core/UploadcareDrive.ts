@@ -20,7 +20,7 @@ export default class UploadcareDrive implements Drive {
     return this._options;
   }
 
-  get driveType() {
+  get provider() {
     return this.options.type;
   }
 

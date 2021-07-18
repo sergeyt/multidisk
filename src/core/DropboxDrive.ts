@@ -14,7 +14,7 @@ export default class DropboxDrive implements Drive {
     this._options = options;
   }
 
-  get driveType() {
+  get provider() {
     return "dropbox";
   }
   get id() {

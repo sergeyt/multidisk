@@ -16,10 +16,10 @@ export default function DriveList({ drives }: { drives: Drive[] }) {
       <ListItem style={{ cursor: "pointer" }}>
         <ListItemAvatar>
           <Avatar>
-            <Icon type={d.driveType} />
+            <Icon type={d.provider} />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary={d.name} secondary={d.driveType} />
+        <ListItemText primary={d.name} secondary={d.provider} />
         <ListItemSecondaryAction>
           <DriveMenu driveId={d.id} />
         </ListItemSecondaryAction>
