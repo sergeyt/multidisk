@@ -21,4 +21,5 @@ export interface Drive extends Folder {
   options: any;
   provider: string;
   deleteFile(fileId: string): Promise<void>;
+  getFolder(folderId: string): Promise<Folder>;
 }

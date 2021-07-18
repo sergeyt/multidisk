@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { Drive, File, ItemType, Item } from "../types";
+import { Drive, File, ItemType, Item, Folder } from "../types";
 
 type Options = {
   type: string;
@@ -67,6 +67,10 @@ export default class UploadcareDrive implements Drive {
       `https://api.uploadcare.com/files/${fileId}/`
     );
     checkResponseOK(resp);
+  }
+
+  async getFolder(folderId: string): Promise<Folder> {
+    throw new Error("not implemented");
   }
 }
 
