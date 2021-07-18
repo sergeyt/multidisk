@@ -26,7 +26,10 @@ export default function DriveView() {
     <>
       <Box m={2} mb={2}>
         <label>Upload a file:&nbsp;</label>
-        <Widget publicKey={data.drive.publicKey} onChange={revalidate} />
+        <Widget
+          publicKey={data.drive.options.publicKey}
+          onChange={revalidate}
+        />
       </Box>
       <ItemList data={data.items} />
     </>

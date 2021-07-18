@@ -36,20 +36,12 @@ class UploadcareDrive implements Drive {
     return this.options.name;
   }
 
-  get publicKey() {
-    return this.options.publicKey;
-  }
-
-  makeHeaders() {
-    return {
-      Accept: "application/vnd.uploadcare-v0.5+json",
-      Authorization: `Uploadcare.Simple ${this.publicKey}:${this.options.secretKey}`,
-    };
-  }
-
   axios() {
     return axios.create({
-      headers: this.makeHeaders(),
+      headers: {
+        Accept: "application/vnd.uploadcare-v0.5+json",
+        Authorization: `Uploadcare.Simple ${this.options.publicKey}:${this.options.secretKey}`,
+      },
     });
   }
 

@@ -21,6 +21,5 @@ export interface Folder extends Item {
 export interface Drive extends Folder {
   options: any;
   driveType: string;
-  publicKey: string;
   deleteFile(fileId: string): Promise<void>;
 }
