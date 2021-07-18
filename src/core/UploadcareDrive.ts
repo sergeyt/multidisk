@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { Drive, File, Folder, ItemType } from "../types";
+import { Drive, File, ItemType, Item } from "../types";
 
 type Options = {
   type: string;
@@ -45,7 +45,7 @@ export default class UploadcareDrive implements Drive {
     });
   }
 
-  async getFiles(): Promise<File[]> {
+  async getItems(): Promise<Item[]> {
     const resp = await this.axios().get("https://api.uploadcare.com/files/");
     checkResponseOK(resp);
     return resp.data.results.map(
@@ -60,10 +60,6 @@ export default class UploadcareDrive implements Drive {
           size: f.size,
         } as File)
     );
-  }
-
-  async getFolders(): Promise<Folder[]> {
-    return [];
   }
 
   async deleteFile(fileId: string): Promise<void> {

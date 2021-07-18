@@ -14,8 +14,7 @@ export interface File extends Item {
 }
 
 export interface Folder extends Item {
-  getFiles(): Promise<File[]>;
-  getFolders(): Promise<Folder[]>;
+  getItems(): Promise<Item[]>;
 }
 
 export interface Drive extends Folder {

@@ -4,7 +4,6 @@ import { Box } from "@material-ui/core";
 import { Widget } from "@uploadcare/react-widget";
 import { getDrive } from "../../core/store";
 import Loader from "../../components/Loader";
-import { Item } from "../../types";
 import ItemList from "../../components/ItemList";
 
 export default function DriveView() {
@@ -13,9 +12,8 @@ export default function DriveView() {
 
   const { data, revalidate } = useSWR(`/drive/${id}`, async () => {
     const drive = await getDrive(String(id));
-    const folders = await drive.getFolders();
-    const files = await drive.getFiles();
-    return { drive, items: (folders as Item[]).concat(files) };
+    const items = await drive.getItems();
+    return { drive, items };
   });
   if (!data) {
     return <Loader />;
