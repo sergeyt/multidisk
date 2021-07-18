@@ -5,6 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import FileIcon from "@material-ui/icons/InsertDriveFile";
+import PdfIcon from "@material-ui/icons/PictureAsPdf";
 import MuiLink from "@material-ui/core/Link";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -27,7 +28,7 @@ const FileItem: React.FC<{ item: File }> = ({ item }) => {
     <ListItem className={styles.item}>
       <ListItemAvatar>
         <Avatar>
-          <FileIcon />
+          {withExtension(item.name, ".pdf") ? <PdfIcon /> : <FileIcon />}
         </Avatar>
       </ListItemAvatar>
       <MuiLink href={item.url} className={styles.fileLink} target="_blank">
@@ -44,6 +45,10 @@ const FileItem: React.FC<{ item: File }> = ({ item }) => {
     </ListItem>
   );
 };
+
+function withExtension(filename: string, ext: string) {
+  return filename && filename.toLowerCase().endsWith(ext);
+}
 
 function formatDate(val: Date) {
   return DateTime.fromJSDate(val).toFormat("MMM d, yyyy");
