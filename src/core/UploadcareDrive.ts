@@ -9,7 +9,7 @@ type Options = {
   secretKey: string;
 };
 
-class UploadcareDrive implements Drive {
+export default class UploadcareDrive implements Drive {
   private _options: Options;
 
   constructor(options: Options) {
@@ -83,5 +83,3 @@ function checkResponseOK(resp: AxiosResponse) {
     throw new Error(JSON.stringify(resp.data));
   }
 }
-
-export default UploadcareDrive;

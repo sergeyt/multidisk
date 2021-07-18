@@ -1,4 +1,3 @@
-import React from "react";
 import isEmpty from "lodash/isEmpty";
 import List from "@material-ui/core/List";
 import { Item, File, Folder } from "../types";
@@ -6,7 +5,7 @@ import FileItem from "./FileItem";
 import FolderItem from "./FolderItem";
 import Placeholder from "./Placeholder";
 
-const ItemList: React.FC<{ data: Item[] }> = ({ data }) => {
+export default function ItemList({ data }: { data: Item[] }) {
   if (isEmpty(data)) {
     return (
       <Placeholder>
@@ -26,6 +25,4 @@ const ItemList: React.FC<{ data: Item[] }> = ({ data }) => {
     }
   });
   return <List>{items}</List>;
-};
-
-export default ItemList;
+}
