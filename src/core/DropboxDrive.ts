@@ -1,6 +1,6 @@
 import axios from "axios";
 import trimStart from "lodash/trimStart";
-import { Drive, ItemType, Item, File, Folder } from "../types";
+import { Drive, Item, File } from "../types";
 import { checkResponseOK } from "./utils";
 
 type Options = {
@@ -29,90 +29,107 @@ export default class DropboxDrive implements Drive {
   get options() {
     return this._options;
   }
-  get type(): ItemType {
-    return "drive";
-  }
 
-  async getItems(): Promise<Item[]> {
+  async getItems(folderId: string = ""): Promise<Item[]> {
+    if (!folderId.startsWith("/")) {
+      folderId = "/" + folderId;
+    }
     const resp = await this.axios().post(
       "https://api.dropboxapi.com/2/files/list_folder",
       {
-        path: "",
+        path: folderId === "/" ? "" : folderId,
       }
     );
     checkResponseOK(resp);
     return resp.data.entries.map((entry) => {
       if (entry[".tag"] === "file") {
         return {
-          id: entry.id,
+          type: "file",
+          id: trimPrefix(entry.id, "id:"),
           name: entry.name,
-          createdAt: new Date(entry.serverModified),
+          path: entry.path_display,
+          createdAt: new Date(entry.server_modified),
           driveId: this.id,
-          url: "",
           size: entry.size,
+          download: async () => {
+            const resp = await this.axios().post(
+              "https://content.dropboxapi.com/2/files/download",
+              undefined,
+              {
+                headers: {
+                  "Dropbox-API-Arg": JSON.stringify({ path: entry.id }),
+                },
+                responseType: "blob",
+              }
+            );
+            downloadBlob(resp.data, entry.name);
+          },
         } as File;
       }
-      return new DropboxFolder(this, entry);
+      return {
+        type: "folder",
+        id: trimStart(entry.path_display, "/"),
+        name: entry.name,
+        path: entry.path_display,
+        driveId: this.id,
+      } as Item;
     });
   }
 
-  deleteFile(fileId: string): Promise<void> {
-    return Promise.resolve(undefined);
-  }
-
-  async getFolder(folderId: string): Promise<Folder> {
-    // TODO figure out how to get folder info by id
-    // for now just list parent folder and find the folder
-    const path = parsePath(folderId);
-    const parentPath = path.slice(0, path.length - 1).join("/");
-
-    const resp = await this.axios().get(
-      "https://api.dropboxapi.com/2/files/list_folder",
+  async deleteFile(fileId: string): Promise<void> {
+    const resp = this.axios().post(
+      "https://api.dropboxapi.com/2/file_requests/delete",
       {
-        data: {
-          path: parentPath,
-        },
+        ids: [fileId],
       }
     );
     checkResponseOK(resp);
-    // TODO check next page
-    const entry = resp.data.entries.find((t) => t.path_display === folderId);
-    return new DropboxFolder(this, entry);
   }
 
   axios() {
     return axios.create({
       headers: {
         Authorization: `Bearer ${this.options.accessToken}`,
+        "Content-Type": "application/json",
       },
     });
   }
 }
 
-function parsePath(path: string) {
-  return path.split("/");
+function trimPrefix(s: string, prefix: string) {
+  return s.startsWith(prefix) ? s.slice(prefix.length) : s;
 }
 
-class DropboxFolder implements Folder {
-  constructor(private drive: DropboxDrive, entry: any) {
-    this.id = trimStart(entry.path_display, "/");
-    this.name = entry.name;
-    this.path = entry.path_display;
-  }
+// https://blog.logrocket.com/programmatic-file-downloads-in-the-browser-9a5186298d5c/
+function downloadBlob(blob, filename) {
+  // Create an object URL for the blob object
+  const url = URL.createObjectURL(blob);
 
-  id: string;
-  name: string;
-  path: string;
+  // Create a new anchor element
+  const a = document.createElement("a");
 
-  get driveId() {
-    return this.drive.id;
-  }
+  // Set the href and download attributes for the anchor element
+  // You can optionally set other attributes like `title`, etc
+  // Especially, if the anchor element will be attached to the DOM
+  a.href = url;
+  a.download = filename || "download";
 
-  get type(): ItemType {
-    return "folder";
-  }
+  // Click handler that releases the object URL after the element has been clicked
+  // This is required for one-off downloads of the blob content
+  const clickHandler = () => {
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      a.removeEventListener("click", clickHandler);
+    }, 150);
+  };
 
-  getItems(): Promise<Item[]> {
-    return Promise.resolve([]);
-  }
+  // Add the click event listener on the anchor element
+  // Comment out this line if you don't want a one-off download of the blob content
+  a.addEventListener("click", clickHandler, false);
+
+  // Programmatically trigger a click on the anchor element
+  // Useful if you want the download to happen automatically
+  // Without attaching the anchor element to the DOM
+  // Comment out this line if you don't want an automatic download of the blob content
+  a.click();
 }

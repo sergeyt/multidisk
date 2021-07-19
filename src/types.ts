@@ -1,28 +1,24 @@
-export type ItemType = "drive" | "folder" | "file";
+export type ItemType = "file" | "folder";
 
 export interface Item {
   type: ItemType;
   id: string;
   name: string;
+  path: string;
+  driveId: string;
 }
 
 export interface File extends Item {
-  driveId: string;
   size: number;
   createdAt: Date;
-  url: string;
-}
-
-export interface Folder extends Item {
-  driveId: string;
-  getItems(): Promise<Item[]>;
+  url?: string;
+  download?: () => Promise<any>;
 }
 
 export interface Drive {
   options: any;
   provider: string;
 
-  getItems(): Promise<Item[]>;
+  getItems(folderId?: string): Promise<Item[]>;
   deleteFile(fileId: string): Promise<void>;
-  getFolder(folderId: string): Promise<Folder>;
 }

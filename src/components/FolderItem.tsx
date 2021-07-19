@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const FolderItem: React.FC<{ item: Folder }> = ({ item }) => {
   const styles = useStyles();
   return (
-    <Link href={`/drive/${item.driveId}/folder/${encodeURIComponent(item.id)}`}>
+    <Link href={`/drive/${item.driveId}?folder=${encodeURIComponent(item.id)}`}>
       <ListItem className={styles.item}>
         <ListItemAvatar>
           <Avatar>

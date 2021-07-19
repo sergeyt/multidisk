@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Drive, File, ItemType, Item, Folder } from "../types";
+import { Drive, File, Item } from "../types";
 import { checkResponseOK } from "./utils";
 
 type Options = {
@@ -25,10 +25,6 @@ export default class UploadcareDrive implements Drive {
     return this.options.type;
   }
 
-  get type(): ItemType {
-    return "drive";
-  }
-
   get id() {
     return this.options.id;
   }
@@ -46,7 +42,7 @@ export default class UploadcareDrive implements Drive {
     });
   }
 
-  async getItems(): Promise<Item[]> {
+  async getItems(folderId?: string): Promise<Item[]> {
     const resp = await this.axios().get("https://api.uploadcare.com/files/");
     checkResponseOK(resp);
     return resp.data.results.map(
@@ -68,9 +64,5 @@ export default class UploadcareDrive implements Drive {
       `https://api.uploadcare.com/files/${fileId}/`
     );
     checkResponseOK(resp);
-  }
-
-  async getFolder(folderId: string): Promise<Folder> {
-    throw new Error("not implemented");
   }
 }

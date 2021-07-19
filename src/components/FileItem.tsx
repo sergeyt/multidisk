@@ -31,7 +31,17 @@ const FileItem: React.FC<{ item: File }> = ({ item }) => {
           {withExtension(item.name, ".pdf") ? <PdfIcon /> : <FileIcon />}
         </Avatar>
       </ListItemAvatar>
-      <MuiLink href={item.url} className={styles.fileLink} target="_blank">
+      <MuiLink
+        href={item.url || "#"}
+        className={styles.fileLink}
+        target="_blank"
+        onClick={(e) => {
+          if (item.download) {
+            e.preventDefault();
+            item.download();
+          }
+        }}
+      >
         <ListItemText
           primary={item.name}
           secondary={[prettyBytes(item.size), formatDate(item.createdAt)]
