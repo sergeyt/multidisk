@@ -98,3 +98,8 @@ export async function deleteFileById(driveId, fileId: string) {
   const drive = await getDrive(driveId);
   await drive.deleteFile(fileId);
 }
+
+export async function deleteFolderById(driveId, folderId: string) {
+  const drive = await getDrive(driveId);
+  await drive.deleteFolder(folderId);
+}

@@ -86,6 +86,10 @@ export default class DropboxDrive implements Drive {
     checkResponseOK(resp);
   }
 
+  deleteFolder(folderId: string): Promise<void> {
+    return Promise.resolve(undefined);
+  }
+
   axios() {
     return axios.create({
       headers: {

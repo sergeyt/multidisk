@@ -21,4 +21,5 @@ export interface Drive {
 
   getItems(folderId?: string): Promise<Item[]>;
   deleteFile(fileId: string): Promise<void>;
+  deleteFolder(folderId: string): Promise<void>;
 }

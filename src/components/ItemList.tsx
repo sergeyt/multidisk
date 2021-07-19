@@ -1,6 +1,6 @@
 import isEmpty from "lodash/isEmpty";
 import List from "@material-ui/core/List";
-import { Item, File, Folder } from "../types";
+import { Item, File } from "../types";
 import FileItem from "./FileItem";
 import FolderItem from "./FolderItem";
 import Placeholder from "./Placeholder";
@@ -19,7 +19,7 @@ export default function ItemList({ data }: { data: Item[] }) {
       case "file":
         return <FileItem key={k} item={item as File} />;
       case "folder":
-        return <FolderItem key={k} item={item as Folder} />;
+        return <FolderItem key={k} item={item as Item} />;
       default:
         return null;
     }

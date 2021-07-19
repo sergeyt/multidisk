@@ -65,4 +65,8 @@ export default class UploadcareDrive implements Drive {
     );
     checkResponseOK(resp);
   }
+
+  deleteFolder(folderId: string): Promise<void> {
+    return Promise.resolve(undefined);
+  }
 }
