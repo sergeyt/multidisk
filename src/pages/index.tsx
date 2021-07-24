@@ -14,7 +14,7 @@ export default function Home() {
   if (isEmpty(drives)) {
     return (
       <Placeholder>
-        You don't any drives, but you can create one clicking on ADD DRIVE
+        You have no any drives, but you can create new one just clicking on ADD DRIVE
         button
       </Placeholder>
     );
