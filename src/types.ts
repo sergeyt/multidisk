@@ -16,6 +16,8 @@ export interface File extends Item {
 }
 
 export interface Drive {
+  id: string;
+  name: string;
   options: any;
   provider: string;
 
