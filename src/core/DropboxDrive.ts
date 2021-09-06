@@ -77,7 +77,7 @@ export default class DropboxDrive implements Drive {
   }
 
   async deleteFile(fileId: string): Promise<void> {
-    const resp = this.axios().post(
+    const resp = await this.axios().post(
       "https://api.dropboxapi.com/2/file_requests/delete",
       {
         ids: [fileId],
