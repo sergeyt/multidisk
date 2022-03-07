@@ -268,14 +268,14 @@
   resolved "https://registry.yarnpkg.com/@uploadcare/client-suspense/-/client-suspense-1.0.5.tgz#b317b94172340104d5fc35af1b2c0f7c75e35935"
   integrity sha512-bjPBjSFcrH4uvgpZOJYcv+lKzpPntZgU8F4Ycg/KDrqCLqK6N5TCwcgDINR5g28D0+Hb61VgI5LdFsc950Cw4w==
 
-"@uploadcare/react-widget@1.3.8":
-  version "1.3.8"
-  resolved "https://registry.yarnpkg.com/@uploadcare/react-widget/-/react-widget-1.3.8.tgz#74d99834570c0a8d5097a22fdc77b31d7bc8d2ef"
-  integrity sha512-FJhW+dFqbf5dwUV4Qvxrriej8GIQjCyiD+BhMRBLJJetvkoLMsoEc4OXHrtf3SRu9T6Y5QE3RIXrkdTYlp6JLw==
+"@uploadcare/react-widget@1.3.10":
+  version "1.3.10"
+  resolved "https://registry.yarnpkg.com/@uploadcare/react-widget/-/react-widget-1.3.10.tgz#d8b808fe674091559379455ef3c536d8d87e39c8"
+  integrity sha512-v9/cDxZLJR1Vsw9fVmJ0VH2pMHP8mYgU8tiYEBh8YXrR1U2jpQJc4EpAPl6GsKDspbgvpkXDIpAhyfymZ45zWg==
   dependencies:
     "@uploadcare/client-suspense" "^1.0.5"
     react-fast-compare "^3.2.0"
-    uploadcare-widget "^3.10.2"
+    uploadcare-widget "^3.17.0"
 
 anser@1.4.9:
   version "1.4.9"
@@ -2154,10 +2154,10 @@ unpipe@1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
 
-uploadcare-widget@^3.10.2:
-  version "3.11.3"
-  resolved "https://registry.yarnpkg.com/uploadcare-widget/-/uploadcare-widget-3.11.3.tgz#6460eb7bffbfa70e2bfc11927ee75250570bc537"
-  integrity sha512-syvB7PSykkjLRG1O9vRyhm9Kj4Tif+AEVI4DQ7jJcT1dliQXw+xcEGljDQbjUixgjGR6Nr8/iEDcKrbv5tVguw==
+uploadcare-widget@^3.17.0:
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/uploadcare-widget/-/uploadcare-widget-3.17.0.tgz#57c941725ec1704936534d71c0704744b09391ec"
+  integrity sha512-NqbZ5hZJOd/QumgqaZ+DyZH9s0nyDNYYw94aMAML8H9QRNOsT/2QGYuXdCo5lTZ9Rjee/djs02w3tMC3TDN2fg==
   dependencies:
     escape-html "^1.0.3"
     jquery "^3.6.0"
